@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo "Hello, world!"
+        
+      - name: Azure Login
+        run: az login --service-principal --username 0c401359-9aa4-43a3-a26d-d1f0df746d57 --password Cpz8Q~LQxwtg6YxVWP1OZs4UVB3psu6ICQYiObVq --tenant 4611c619-c77c-404a-b26f-b286f3681168
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform Validate
+        run: terraform validate
+      - name: Terraform plan
+        run: terraform plan
+      - name: Terraform apply
+        run: terraform apply -auto-approve
+
