@@ -1,21 +1,25 @@
-name: CI
-
-on:
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: [self-hosted]
-
+name: javed
+on: 
+  workflow_dispetch:
+jobs: 
+  terraform:
+    runs-on: ubantu-latest
+   
     steps:
-      - name: Checkout Code
+      - name: checkout repo
         uses: actions/checkout@v4
-
-      - name: Run a one-line script
-        run: echo "Hello, world!"
-        
-      - name: Azure Login
-        run: az login --service-principal --username 0c401359-9aa4-43a3-a26d-d1f0df746d57 --password Cpz8Q~LQxwtg6YxVWP1OZs4UVB3psu6ICQYiObVq --tenant 4611c619-c77c-404a-b26f-b286f3681168
+      - name: terraform setup
+        uses: hashicorp/setup-terraform@v3
+      - name: Azure login
+        user: uses: azure/login@v3
+        with:
+          creds: |
+            {
+              "clientSecret":  5a0fd6ec-0020-4d20-9fb4-4817fa09c72b",
+              "subscriptionId":  "7f5d9e48-dc3a-4e43-89ee-2f65015f2837",
+              "tenantId":  "4611c619-c77c-404a-b26f-b286f3681168",
+              "clientId":  "0c401359-9aa4-43a3-a26d-d1f0df746d57"           
+             }
       - name: Terraform init
         run: terraform init
       - name: Terraform Validate
@@ -24,4 +28,8 @@ jobs:
         run: terraform plan
       - name: Terraform apply
         run: terraform apply -auto-approve
+    
+          
 
+
+        
