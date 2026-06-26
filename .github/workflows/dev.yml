@@ -1,6 +1,6 @@
 name: javed
 on: 
-  workflow_dispetch:
+  workflow_dispatch:
 jobs: 
   terraform:
     runs-on: ubantu-latest
@@ -11,7 +11,7 @@ jobs:
       - name: terraform setup
         uses: hashicorp/setup-terraform@v3
       - name: Azure login
-        user: uses: azure/login@v3
+        uses: azure/login@v3
         with:
           creds: |
             {
